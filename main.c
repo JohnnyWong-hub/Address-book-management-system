@@ -19,6 +19,9 @@ typedef struct node
 
 void stringput(char *str, int lens, char *notice);
 void enter(link l);
+void del(link l);
+void list(link l);
+
 void stringput(char *str, int lens, char *notice)
 {
     char buf[50];
@@ -63,6 +66,60 @@ void enter(link l)
         q->next = p->next;
         p->next = q;
         p = q;
+    }
+}
+
+void del(link l)
+{
+	if (NULL == l)
+    {
+		return;
+    }
+	char buf[10];
+	node * p = l;
+	node * q = l;
+	p = p->next;
+	if(NULL == p)
+	{
+		printf("The list is empty\n");
+		return;
+    }
+	printf("Input the name you want to find:");
+	scanf("%s", buf);
+	while(NULL != p)
+	{
+		if(strcmp(p->data.name, buf) == 0)
+		{
+			q->next = p->next;
+			free(p);
+            printf("del successful\n");
+			return;
+		}
+		q = p;
+		p = p->next;
+	}
+
+	if(NULL == p)
+	{
+		printf("Not found the address\n");
+		return;
+	}
+}
+
+void list(link l)
+{
+    if(NULL == l)
+        return;
+    node * p = l->next;
+    p = p->next;
+    while(NULL != p)
+    {
+        printf("%s\n", p->data.name);
+        printf("%s\n", p->data.city);
+        printf("%s\n", p->data.province);
+        printf("%s\n", p->data.stat);
+        printf("%s\n", p->data.tel);
+        p = p->next;
     }
 }
 
